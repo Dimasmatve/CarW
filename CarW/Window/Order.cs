@@ -154,5 +154,10 @@ namespace CarW.Window
             MessageBox.Show("Создан заказ", "Запрос");
             this.Close();
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = $"{comboBox2.Text} LIKE '%{textBox1.Text}%'";
+        }
     }
 }

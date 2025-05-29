@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace CarW.Window
@@ -155,6 +156,9 @@ namespace CarW.Window
 
         }
 
-        
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = $"{comboBox1.Text} LIKE '%{textBox3.Text}%'";
+        }
     }
 }

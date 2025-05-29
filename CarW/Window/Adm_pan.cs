@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CarW.Window
 {
@@ -23,18 +24,100 @@ namespace CarW.Window
             this.id_e = id;
             this.con_p = con;
 
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged; // Новая строка
         }
 
         private void Adm_pan_Load(object sender, EventArgs e)
         {
             name.Text = DB_AS.DB_NAME_EMP(con_p, id_e);
+            LoadTablesToComboBox();
         }
 
         public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBox1.SelectedItem == null)
+                return;
+
             string se = comboBox1.SelectedItem.ToString();
             txb_display(se);
             dataGridView1.DataSource = DB_ADM.SELECT_TABLE(con_p, se);
+
+            string tableName = comboBox1.SelectedItem.ToString();
+            LoadColumnsForTable(tableName);
+        }
+        private void LoadColumnsForTable(string tableName)//муть с фильтрацией(подгрузка полей из таблицы)
+        {
+            List<string> columns = new List<string>();
+
+            try
+            {
+                if (con_p.State != ConnectionState.Open)
+                    con_p.Open();
+
+                string query = @"SELECT COLUMN_NAME 
+                        FROM INFORMATION_SCHEMA.COLUMNS 
+                        WHERE TABLE_NAME = @TableName";
+
+                using (SqlCommand command = new SqlCommand(query, con_p))
+                {
+                    command.Parameters.AddWithValue("@TableName", tableName);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            columns.Add(reader.GetString(0));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки столбцов: {ex.Message}");
+            }
+
+            comboBox2.DataSource = null;
+            comboBox2.Items.Clear();
+
+            if (columns.Any())
+            {
+                comboBox2.DataSource = columns;
+            }
+            else
+            {
+                MessageBox.Show("Столбцы для выбранной таблицы не найдены.");
+            }
+        }
+        private void LoadTablesToComboBox()//ещё одна муть для собабоксав
+        {
+            List<string> tables = new List<string>();
+
+            try
+            {
+                if (con_p.State != ConnectionState.Open)
+                    con_p.Open();
+
+                string query = @"SELECT TABLE_NAME 
+                        FROM INFORMATION_SCHEMA.TABLES 
+                        WHERE TABLE_TYPE = 'BASE TABLE'";
+
+                using (SqlCommand command = new SqlCommand(query, con_p))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            tables.Add(reader.GetString(0));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки таблиц: {ex.Message}");
+            }
+
+            comboBox1.DataSource = tables;
         }
 
         public void txb_display(string select)
@@ -129,7 +212,7 @@ namespace CarW.Window
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 // Получаем car_id из выбранной строки
-                int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["car_id"].Value);
+                int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["car_id"].Value);//при удалении Suplies кидает сюда
 
                 // Уточняем имя таблицы
                 string tableName = "Cars"; // Для таблицы Cars
@@ -202,6 +285,20 @@ namespace CarW.Window
             //{
             //    DB_ADM.INSERT_DATA(con_p, one.Text, two.Text, three.Text, four.Text, five.Text, se);
             //}
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox2.SelectedItem != null)
+            {
+                string selectedColumn = comboBox2.SelectedItem.ToString();
+
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = $"{comboBox2.Text} LIKE '%{textBox1.Text}%'";
         }
     }
 }

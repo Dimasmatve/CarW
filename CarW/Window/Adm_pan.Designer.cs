@@ -42,13 +42,16 @@
             this.button1 = new System.Windows.Forms.Button();
             this.delete = new System.Windows.Forms.Button();
             this.add = new System.Windows.Forms.Button();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // name
             // 
             this.name.AutoSize = true;
-            this.name.Location = new System.Drawing.Point(13, 13);
+            this.name.Location = new System.Drawing.Point(13, 9);
             this.name.Name = "name";
             this.name.Size = new System.Drawing.Size(35, 13);
             this.name.TabIndex = 0;
@@ -179,11 +182,48 @@
             this.add.Visible = false;
             this.add.Click += new System.EventHandler(this.add_Click);
             // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "Cars",
+            "Clients",
+            "Employ",
+            "Login_History",
+            "Order",
+            "Servic",
+            "Supplies"});
+            this.comboBox2.Location = new System.Drawing.Point(447, 56);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(126, 21);
+            this.comboBox2.TabIndex = 14;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(445, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(128, 13);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Стобец для фильтрации";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(447, 83);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(126, 20);
+            this.textBox1.TabIndex = 16;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // Adm_pan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.add);
             this.Controls.Add(this.delete);
             this.Controls.Add(this.button1);
@@ -223,5 +263,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button delete;
         private System.Windows.Forms.Button add;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
