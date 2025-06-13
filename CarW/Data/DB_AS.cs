@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -72,6 +73,29 @@ namespace CarW.Data
             }
             return rou_f;
         }
+        public static string DB_CHECK_ST(SqlConnection con_p, string id)// доработанный
+        {
+            string query = @"SELECT s.title, s.access FROM employ e INNER JOIN [State] s ON e.state = s.state_id WHERE e.employee_id = @id";
+
+            SqlDataAdapter sda = new SqlDataAdapter(query, con_p);
+            sda.SelectCommand.Parameters.AddWithValue("@id", id); 
+
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+
+            if (dt.Rows.Count > 0)
+            {
+                string stat = dt.Rows[0]["title"].ToString();
+                string acs = dt.Rows[0]["access"].ToString();
+                MessageBox.Show(stat, "Статус");
+                return acs;
+            }
+            else
+            {
+                MessageBox.Show("Данные не найдены", "Ошибка");
+                return null;
+            }
+        }
 
         public static string DB_NAME_EMP(SqlConnection con, string id)
         {
@@ -113,14 +137,40 @@ namespace CarW.Data
             fio = dt.Rows[0]["client_id"].ToString();
             return fio;
         }
-        public static string DB_NAME_CLIENT(SqlConnection con, DataGridViewSelectedCellCollection ro)
+        public static string DB_NAME_CLIENT(SqlConnection con, DataGridViewSelectedCellCollection ro)//доработана
         {
-            SqlDataAdapter sda = new SqlDataAdapter($"SELECT client_full_name FROM Clients WHERE client_id = {ro[0].Value.ToString()} ", con);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            string fio;
-            fio = dt.Rows[0]["client_full_name"].ToString();
-            return fio;
+            try
+            {
+                // Проверяем, что коллекция ячеек не пустая и что первая ячейка существует
+                if (ro == null || ro.Count == 0 || ro[0].Value == null)
+                {
+                    return "Не выбрана запись"; // Можно вернуть сообщение об ошибке или другое значение по умолчанию
+                }
+
+                // Получаем значение из выбранной ячейки
+                string clientId = ro[0].Value.ToString();
+
+                // Создаем адаптер и заполняем DataTable
+                SqlDataAdapter sda = new SqlDataAdapter($"SELECT client_full_name FROM Clients WHERE client_id = {clientId}", con);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+
+                // Проверяем, что в таблице есть хотя бы одна строка
+                if (dt.Rows.Count == 0)
+                {
+                    return "Запись не найдена"; // Можно вернуть сообщение об ошибке или другое значение по умолчанию
+                }
+
+                // Получаем значение из первой строки
+                string fio = dt.Rows[0]["client_full_name"].ToString();
+
+                return fio;
+            }
+            catch (Exception ex)
+            {
+                // Логируем ошибку или возвращаем сообщение об ошибке
+                return $"Произошла ошибка: {ex.Message}";
+            }
         }
         public static DataTable DB_CH_CARS(SqlConnection con, string id)
         {
@@ -162,12 +212,21 @@ namespace CarW.Data
             des = dt.Rows[0]["Cost"].ToString();
             return des;
         }
-        public static void DB_ORDER_add(SqlConnection con, string car_id, int servic_id, string client_id)
+        public static void DB_ORDER_add(SqlConnection con, string car_id, int servic_id, string client_id)// нужно переработать, но вообще работает
         {
             SqlDataAdapter sda = new SqlDataAdapter($"INSERT INTO [Order](car_id, servic_id, client_id, Status) " +
                 $"VALUES(N'{car_id}', N'{servic_id}', N'{client_id}', N'Готов к выполнению')", con);
             DataTable dt = new DataTable();
-            sda.Fill(dt);
+            if(dt.Rows.Count > 0)
+            {
+                MessageBox.Show("Ошибка, выберите существующую запись");
+            }
+            else if(dt.Rows.Count <= 0)
+            {
+                sda.Fill(dt);
+                MessageBox.Show("Создан заказ", "Запрос");
+            }
+;
         }
         // !!!
         internal static void DeleteRecord(SqlConnection con_p, string tableName, int id)// Вот эта срашная говнина вторая часть в DB_ADM

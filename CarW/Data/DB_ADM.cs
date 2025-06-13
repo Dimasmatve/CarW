@@ -26,7 +26,7 @@ namespace CarW.Data
         {
             //заготовка для других таблиц
         }
-        public static void UPDATE(SqlConnection con, DataGridViewSelectedCellCollection ro, string one, string two,string three,string four, string five, string vib)
+        public static void UPDATE(SqlConnection con, DataGridViewSelectedCellCollection ro, string one, string two,string three,string four, string five, string six, string vib)
         {
             SqlDataAdapter sda = null;
             if ( vib == "0")
@@ -39,7 +39,7 @@ namespace CarW.Data
             }
             else if (vib == "2")
             {
-                sda = new SqlDataAdapter($"UPDATE employ SET logen = N'{one}', passw = '{two}', full_name = N'{three}', roule = N'{four}', salary = N'{five}'" +
+                sda = new SqlDataAdapter($"UPDATE employ SET logen = N'{one}', passw = '{two}', full_name = N'{three}', roule = N'{four}', salary = N'{five}', [state] = '{six}'" +
                     $"WHERE employee_id = {ro[0].Value.ToString()}", con);
             }
             else if (vib == "3")
@@ -59,9 +59,13 @@ namespace CarW.Data
             {
                 sda = new SqlDataAdapter($@"UPDATE Supplies SET Status = N'{one}' WHERE supli_id = {ro[0].Value.ToString()}", con);
             }
+            else if(vib == "7")
+            {
+                sda = new SqlDataAdapter($@"UPDATE State SET title = N'{one}', Description = N'{two}', access = '{three}' WHERE state_id = {ro[0].Value.ToString()}", con);
+            }
             if (sda == null)
             {
-                MessageBox.Show("Изменения не выполнены","Ошибка");
+                MessageBox.Show("Изменения не выполнены", "Ошибка");
             }
             else
             {

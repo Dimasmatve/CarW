@@ -76,7 +76,8 @@
             "Login_History",
             "Order",
             "Servic",
-            "Supplies"});
+            "Supplies",
+            "State"});
             this.comboBox1.Location = new System.Drawing.Point(71, 197);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(126, 21);

@@ -151,7 +151,6 @@ namespace CarW.Window
 
             // Добавляем заказ только после проверок
             DB_AS.DB_ORDER_add(con_p, id_car, id_serv, label4.Text);
-            MessageBox.Show("Создан заказ", "Запрос");
             this.Close();
         }
 

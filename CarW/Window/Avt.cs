@@ -31,27 +31,31 @@ namespace CarW
         {
             string res = DB_AS.DB_AVT(con, textBox1.Text, textBox2.Text);
             string rou = DB_AS.DB_INI_ROULE(con,res);
+            string st = DB_AS.DB_CHECK_ST(con, res);
             if (res != "0")
             {
-                if (rou == "1")
+                if (st == "yes")
                 {
+                    if (rou == "1")
+                    {
 
-                    Client_interaction op = new Client_interaction(res, con);
-                    op.ShowDialog();
-                }
-                else if (rou == "2")
-                {
-                    Adm_pan op = new Adm_pan(res, con);
-                    op.ShowDialog();
-                }
-                else if (rou == "3")
-                {
-                    Wash_order w = new Wash_order(res, con);
-                    w.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Роль не найдена", "ошибка");
+                        Client_interaction op = new Client_interaction(res, con);
+                        op.ShowDialog();
+                    }
+                    else if (rou == "2")
+                    {
+                        Adm_pan op = new Adm_pan(res, con);
+                        op.ShowDialog();
+                    }
+                    else if (rou == "3")
+                    {
+                        Wash_order w = new Wash_order(res, con);
+                        w.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Роль не найдена", "ошибка");
+                    }
                 }
             }
             else

@@ -35,6 +35,7 @@
             this.Desc = new System.Windows.Forms.TextBox();
             this.Quant = new System.Windows.Forms.TextBox();
             this.add = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,11 +102,21 @@
             this.add.UseVisualStyleBackColor = true;
             this.add.Click += new System.EventHandler(this.add_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(151, 188);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 37);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Завершить заказ";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // Wash_order
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.add);
             this.Controls.Add(this.Quant);
             this.Controls.Add(this.Desc);
@@ -131,5 +142,6 @@
         private System.Windows.Forms.TextBox Desc;
         private System.Windows.Forms.TextBox Quant;
         private System.Windows.Forms.Button add;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -24,14 +24,14 @@ namespace CarW.Window
             this.id_e = id;
             this.con_p = con;
 
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            //comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged; // Новая строка
         }
 
         private void Adm_pan_Load(object sender, EventArgs e)
         {
             name.Text = DB_AS.DB_NAME_EMP(con_p, id_e);
-            LoadTablesToComboBox();
+            //LoadTablesToComboBox();// вызывает подгруз таблиц из бд, ломает подгрузку полей
         }
 
         public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -152,7 +152,7 @@ namespace CarW.Window
                 three.Visible = true;
                 four.Visible = true;
                 five.Visible = true;
-                six.Visible = false;
+                six.Visible = true;
                 delete.Visible = false;
                 add.Visible = true;
             }
@@ -194,6 +194,17 @@ namespace CarW.Window
                 one.Visible = true;
                 two.Visible = false;
                 three.Visible = false;
+                four.Visible = false;
+                five.Visible = false;
+                six.Visible = false;
+                delete.Visible = false;
+                add.Visible = true;
+            }
+            else if (com == 7)
+            {
+                one.Visible = true;
+                two.Visible = true;
+                three.Visible = true;
                 four.Visible = false;
                 five.Visible = false;
                 six.Visible = false;
@@ -245,6 +256,7 @@ namespace CarW.Window
                 three.Text = sel[3].Value.ToString();
                 four.Text = sel[4].Value.ToString();
                 five.Text = sel[5].Value.ToString();
+                six.Text = sel[6].Value.ToString();
             }
             else if (se == "3")
             {
@@ -264,13 +276,19 @@ namespace CarW.Window
             {
                 one.Text = sel[4].Value.ToString();
             }
+            else if (se == "7")
+            {
+                one.Text = sel[1].Value.ToString();
+                two.Text = sel[2].Value.ToString();
+                three.Text = sel[4].Value.ToString();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             string se = comboBox1.SelectedIndex.ToString();
             var sel = dataGridView1.SelectedCells;
-            DB_ADM.UPDATE(con_p, sel, one.Text, two.Text, three.Text, four.Text, five.Text, se);
+            DB_ADM.UPDATE(con_p, sel, one.Text, two.Text, three.Text, four.Text, five.Text, six.Text, se);
         }
 
         private void add_Click(object sender, EventArgs e)
@@ -298,7 +316,7 @@ namespace CarW.Window
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = $"{comboBox2.Text} LIKE '%{textBox1.Text}%'";
+            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = $"{comboBox2.Text} LIKE '%{textBox1.Text}%'";// работает не со всеми полями(всякие emploee_id)
         }
     }
 }
