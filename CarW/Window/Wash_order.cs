@@ -23,6 +23,13 @@ namespace CarW.Window
             InitializeComponent();
             this.id_e = id;
             this.con_p = con;
+            button1.Visible = false;
+            add.Visible = false;
+            label1 .Visible = false;
+            label2 .Visible = false;
+            label3 .Visible = false;
+            label4 .Visible = false;
+            button2.Visible = false;
         }
 
         private void Wash_order_Load(object sender, EventArgs e)
@@ -44,12 +51,26 @@ namespace CarW.Window
                 prodname.Visible = false;
                 Desc.Visible = false;
                 Quant.Visible = false;
+                button1.Visible = true;
+                add.Visible = false;
+                label1.Visible = false;
+                label2.Visible = false;
+                label3.Visible = false;
+                label4.Visible = false;
+                button2.Visible = false;
             }
             else if (com == 1)
             {
                 prodname.Visible = true;
                 Desc.Visible = true;
                 Quant.Visible = true;
+                button1.Visible = false;
+                add.Visible = true;
+                label1.Visible = true;
+                label2.Visible = true;
+                label3.Visible = true;
+                label4 .Visible = false;
+                button2.Visible = true;
             }
         }
 
@@ -67,6 +88,47 @@ namespace CarW.Window
                 Quant.Text = "";
 
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string se = comboBox1.SelectedItem.ToString();
+                var sel = dataGridView1.SelectedCells;
+                DB_WASH.CLOSE_ORD(con_p, sel);
+                dataGridView1.DataSource = DB_WASH.SELECT_TABLE(con_p, se);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void upd_Click(object sender, EventArgs e)
+        {
+            string se = comboBox1.SelectedItem.ToString();
+            dataGridView1.DataSource = DB_WASH.SELECT_TABLE(con_p, se);
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            label4.Visible=false;
+            try
+            {
+                var sel = dataGridView1.SelectedCells;
+                prodname.Text = sel[1].Value.ToString();
+                Desc.Text= sel[2].Value.ToString();
+                Quant.Text= sel[3].Value.ToString();
+            }
+            catch { }
+
+        }
+
+        private void button2_MouseMove(object sender, MouseEventArgs e)
+        {
+            label4.Visible = true;
         }
     }
 }

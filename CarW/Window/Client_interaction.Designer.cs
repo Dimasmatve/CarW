@@ -164,7 +164,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(232, 185);
+            this.textBox3.Location = new System.Drawing.Point(232, 5);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 20);
             this.textBox3.TabIndex = 6;
@@ -176,7 +176,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "client_full_name",
             "phone_number"});
-            this.comboBox1.Location = new System.Drawing.Point(338, 185);
+            this.comboBox1.Location = new System.Drawing.Point(338, 5);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 7;

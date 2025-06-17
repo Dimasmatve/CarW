@@ -41,9 +41,17 @@ namespace CarW.Window
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             var sel_car = dataGridView1.SelectedCells;
-            marka.Text = sel_car[1].Value.ToString();
-            models.Text = sel_car[2].Value.ToString();
-            bodwork.Text = sel_car[3].Value.ToString();
+            try
+            {
+                marka.Text = sel_car[1].Value.ToString();
+                models.Text = sel_car[2].Value.ToString();
+                bodwork.Text = sel_car[3].Value.ToString();
+            }
+            catch 
+            {
+                MessageBox.Show("Выберите всю запись!","Подсказка");
+            }
+
         }
 
         private void calculate_Click(object sender, EventArgs e)
@@ -51,7 +59,6 @@ namespace CarW.Window
             if(marka.Text != "" && models.Text != "" && bodwork.Text != "")
             DB_AS.DB_ADDCAR(con_p, marka.Text,models.Text,bodwork.Text,id_c);
             dataGridView1.DataSource = DB_AS.DB_CH_CARS(con_p, id_c);
-            MessageBox.Show("Добавление выполнено", "Запрос");
 
         }
         public void LoadComboBoxFromDatabase()

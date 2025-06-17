@@ -130,12 +130,22 @@ namespace CarW.Data
         }
         public static string DB_ID_CLIENT(SqlConnection con, DataGridViewSelectedCellCollection ro)
         {
-            SqlDataAdapter sda = new SqlDataAdapter($"SELECT client_id FROM Clients WHERE client_id = {ro[0].Value.ToString()}", con);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            string fio;
-            fio = dt.Rows[0]["client_id"].ToString();
-            return fio;
+            string fio = "NULL";
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter($"SELECT client_id FROM Clients WHERE client_id = {ro[0].Value.ToString()}", con);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                fio = dt.Rows[0]["client_id"].ToString();
+                return fio;
+            }
+            catch
+            {
+                MessageBox.Show("Выберите всю запись!!!", "Подсказка");
+                fio = "NULL";
+                return fio;
+            }
+            
         }
         public static string DB_NAME_CLIENT(SqlConnection con, DataGridViewSelectedCellCollection ro)//доработана
         {
@@ -190,9 +200,18 @@ namespace CarW.Data
         //}
         public static void DB_ADDCAR(SqlConnection con,string mark, string model, string bod, string c_id)
         {
-            SqlDataAdapter sda = new SqlDataAdapter($"INSERT INTO Cars(brand, model, body_type, client_id) VALUES(N'{mark}', N'{model}', N'{bod}', '{c_id}')", con);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter($"INSERT INTO Cars(brand, model, body_type, client_id) VALUES(N'{mark}', N'{model}', N'{bod}', '{c_id}')", con);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                MessageBox.Show("Добавление выполнено", "Запрос");
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка добавления, проверьте корректность данных клиента", "Ошибка");
+            }
+
         }
         public static string DB_COMB_SERV(SqlConnection con,int id)
         {
@@ -214,19 +233,27 @@ namespace CarW.Data
         }
         public static void DB_ORDER_add(SqlConnection con, string car_id, int servic_id, string client_id)// нужно переработать, но вообще работает
         {
-            SqlDataAdapter sda = new SqlDataAdapter($"INSERT INTO [Order](car_id, servic_id, client_id, Status) " +
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter($"INSERT INTO [Order](car_id, servic_id, client_id, Status) " +
                 $"VALUES(N'{car_id}', N'{servic_id}', N'{client_id}', N'Готов к выполнению')", con);
-            DataTable dt = new DataTable();
-            if(dt.Rows.Count > 0)
-            {
-                MessageBox.Show("Ошибка, выберите существующую запись");
+                DataTable dt = new DataTable();
+                if (dt.Rows.Count > 0)
+                {
+                    MessageBox.Show("Ошибка, выберите существующую запись");
+                }
+                else if (dt.Rows.Count <= 0)
+                {
+                    sda.Fill(dt);
+                    MessageBox.Show("Создан заказ", "Запрос");
+                }
             }
-            else if(dt.Rows.Count <= 0)
+            catch (SqlException ex)
             {
-                sda.Fill(dt);
-                MessageBox.Show("Создан заказ", "Запрос");
+                MessageBox.Show($"Ошибка удаления: {ex.Message}");
             }
-;
+
+
         }
         // !!!
         internal static void DeleteRecord(SqlConnection con_p, string tableName, int id)// Вот эта срашная говнина вторая часть в DB_ADM

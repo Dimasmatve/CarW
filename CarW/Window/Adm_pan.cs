@@ -316,7 +316,11 @@ namespace CarW.Window
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = $"{comboBox2.Text} LIKE '%{textBox1.Text}%'";// работает не со всеми полями(всякие emploee_id)
+            try
+            {
+                (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = $"{comboBox2.Text} LIKE '%{textBox1.Text}%'";// работает не со всеми полями(всякие emploee_id)
+            }
+            catch{}
         }
     }
 }
