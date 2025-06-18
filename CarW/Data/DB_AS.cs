@@ -17,6 +17,7 @@ namespace CarW.Data
     {
         public static SqlConnection DB_CON()// просто подключение к бд
         {
+            //SqlConnection con = new SqlConnection(@"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SV;Integrated Security=True;Connect Timeout=30");
             SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\DP.mdf;Initial Catalog=DP;Integrated Security=True;Connect Timeout=30"); //сдесь строку ставить и резать до того как и тут
             return con;
         }

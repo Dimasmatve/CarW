@@ -16,6 +16,7 @@ namespace CarW.Window
 {
     public partial class Adm_pan : Form
     {
+
         string id_e;
         SqlConnection con_p;
         public Adm_pan(string id, SqlConnection con)

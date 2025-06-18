@@ -47,6 +47,8 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 29);
             this.dataGridView1.Name = "dataGridView1";
@@ -56,18 +58,21 @@
             // 
             // next
             // 
+            this.next.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.next.ForeColor = System.Drawing.Color.White;
             this.next.Location = new System.Drawing.Point(12, 185);
             this.next.Name = "next";
             this.next.Size = new System.Drawing.Size(75, 23);
             this.next.TabIndex = 1;
             this.next.Text = "Далее";
-            this.next.UseVisualStyleBackColor = true;
+            this.next.UseVisualStyleBackColor = false;
             this.next.Visible = false;
             this.next.Click += new System.EventHandler(this.next_Click);
             // 
             // new_client
             // 
             this.new_client.AutoSize = true;
+            this.new_client.ForeColor = System.Drawing.Color.MediumBlue;
             this.new_client.Location = new System.Drawing.Point(12, 211);
             this.new_client.Name = "new_client";
             this.new_client.Size = new System.Drawing.Size(98, 17);
@@ -114,7 +119,8 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.Lime;
+            this.button1.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(4, 90);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
@@ -126,6 +132,8 @@
             // 
             // textBox2
             // 
+            this.textBox2.BackColor = System.Drawing.Color.LightBlue;
+            this.textBox2.ForeColor = System.Drawing.Color.Navy;
             this.textBox2.Location = new System.Drawing.Point(3, 64);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(101, 20);
@@ -135,6 +143,8 @@
             // 
             // textBox1
             // 
+            this.textBox1.BackColor = System.Drawing.Color.LightBlue;
+            this.textBox1.ForeColor = System.Drawing.Color.Navy;
             this.textBox1.Location = new System.Drawing.Point(4, 26);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
@@ -146,6 +156,7 @@
             // 
             this.name_e.AutoEllipsis = true;
             this.name_e.AutoSize = true;
+            this.name_e.ForeColor = System.Drawing.Color.MediumBlue;
             this.name_e.Location = new System.Drawing.Point(13, 13);
             this.name_e.Name = "name_e";
             this.name_e.Size = new System.Drawing.Size(35, 13);
@@ -155,7 +166,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.IndianRed;
+            this.label3.ForeColor = System.Drawing.Color.MediumBlue;
             this.label3.Location = new System.Drawing.Point(93, 190);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 13);
@@ -164,6 +175,8 @@
             // 
             // textBox3
             // 
+            this.textBox3.BackColor = System.Drawing.Color.LightBlue;
+            this.textBox3.ForeColor = System.Drawing.Color.Navy;
             this.textBox3.Location = new System.Drawing.Point(232, 5);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 20);
@@ -172,6 +185,8 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.BackColor = System.Drawing.Color.LightCyan;
+            this.comboBox1.ForeColor = System.Drawing.Color.Navy;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "client_full_name",
@@ -185,6 +200,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LemonChiffon;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.textBox3);
@@ -194,6 +210,7 @@
             this.Controls.Add(this.new_client);
             this.Controls.Add(this.next);
             this.Controls.Add(this.dataGridView1);
+            this.ForeColor = System.Drawing.Color.Black;
             this.Name = "Client_interaction";
             this.Text = "Car Wash Client";
             this.Load += new System.EventHandler(this.Client_interaction_Load_1);
