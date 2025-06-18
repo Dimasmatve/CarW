@@ -1,15 +1,6 @@
 ﻿using CarW.Data;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CarW.Window
@@ -25,10 +16,10 @@ namespace CarW.Window
             this.con_p = con;
             button1.Visible = false;
             add.Visible = false;
-            label1 .Visible = false;
-            label2 .Visible = false;
-            label3 .Visible = false;
-            label4 .Visible = false;
+            label1.Visible = false;
+            label2.Visible = false;
+            label3.Visible = false;
+            label4.Visible = false;
             button2.Visible = false;
         }
 
@@ -69,7 +60,7 @@ namespace CarW.Window
                 label1.Visible = true;
                 label2.Visible = true;
                 label3.Visible = true;
-                label4 .Visible = false;
+                label4.Visible = false;
                 button2.Visible = true;
             }
         }
@@ -78,7 +69,7 @@ namespace CarW.Window
         {
             if (prodname.Text == "" || Desc.Text == "" || Quant.Text == "")
             {
-                MessageBox.Show("Заполните поля","Внимание");
+                MessageBox.Show("Заполните поля", "Внимание");
             }
             else
             {
@@ -114,13 +105,13 @@ namespace CarW.Window
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            label4.Visible=false;
+            label4.Visible = false;
             try
             {
                 var sel = dataGridView1.SelectedCells;
                 prodname.Text = sel[1].Value.ToString();
-                Desc.Text= sel[2].Value.ToString();
-                Quant.Text= sel[3].Value.ToString();
+                Desc.Text = sel[2].Value.ToString();
+                Quant.Text = sel[3].Value.ToString();
             }
             catch { }
 

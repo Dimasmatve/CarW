@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace CarW.Data
 {
@@ -17,7 +9,6 @@ namespace CarW.Data
     {
         public static SqlConnection DB_CON()// просто подключение к бд
         {
-            //SqlConnection con = new SqlConnection(@"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SV;Integrated Security=True;Connect Timeout=30");
             SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\DP.mdf;Initial Catalog=DP;Integrated Security=True;Connect Timeout=30"); //сдесь строку ставить и резать до того как и тут
             return con;
         }
@@ -47,7 +38,6 @@ namespace CarW.Data
         }
         public static string DB_INI_ROULE(SqlConnection con, string id)// возвращает роль сотрудника
         {
-            // Убираем апострофы вокруг {id}, так как employee_id — числовой тип
             SqlDataAdapter sda = new SqlDataAdapter($"SELECT roule FROM employ WHERE [employee_id] = {id}", con);
             DataTable dt = new DataTable();
             sda.Fill(dt);
@@ -63,7 +53,7 @@ namespace CarW.Data
                 {
                     rou_f = "2";
                 }
-                else if (dt.Rows[0]["roule"].ToString() == "мойщик") 
+                else if (dt.Rows[0]["roule"].ToString() == "мойщик")
                 {
                     rou_f = "3";
                 }
@@ -79,7 +69,7 @@ namespace CarW.Data
             string query = @"SELECT s.title, s.access FROM employ e INNER JOIN [State] s ON e.state = s.state_id WHERE e.employee_id = @id";
 
             SqlDataAdapter sda = new SqlDataAdapter(query, con_p);
-            sda.SelectCommand.Parameters.AddWithValue("@id", id); 
+            sda.SelectCommand.Parameters.AddWithValue("@id", id);
 
             DataTable dt = new DataTable();
             sda.Fill(dt);
@@ -115,7 +105,7 @@ namespace CarW.Data
             {
                 sda = new SqlDataAdapter("SELECT * FROM Clients", con);
             }
-            else if(tb == "auto")
+            else if (tb == "auto")
             {
                 sda = new SqlDataAdapter("SELECT * FROM Auto", con);
             }
@@ -123,7 +113,7 @@ namespace CarW.Data
             sda.Fill(dt);
             return dt;
         }
-        public static void DB_ADD_CLIENT(SqlConnection con,string fio, string phone)
+        public static void DB_ADD_CLIENT(SqlConnection con, string fio, string phone)
         {
             SqlDataAdapter sda = new SqlDataAdapter($"INSERT INTO Clients(client_full_name, phone_number) VALUES(N'{fio}', N'{phone}')", con);
             DataTable dt = new DataTable();
@@ -146,7 +136,7 @@ namespace CarW.Data
                 fio = "NULL";
                 return fio;
             }
-            
+
         }
         public static string DB_NAME_CLIENT(SqlConnection con, DataGridViewSelectedCellCollection ro)//доработана
         {
@@ -190,16 +180,7 @@ namespace CarW.Data
             sda.Fill(dt);
             return dt;
         }
-        //public static string GetClientIdByCarId(SqlConnection con, int carId)// мб снести
-        //{
-        //    using (SqlCommand cmd = new SqlCommand("SELECT client_id FROM Cars WHERE car_id = @CarId", con))
-        //    {
-        //        cmd.Parameters.AddWithValue("@CarId", carId);
-        //        object result = cmd.ExecuteScalar();
-        //        return result?.ToString() ?? "";
-        //    }
-        //}
-        public static void DB_ADDCAR(SqlConnection con,string mark, string model, string bod, string c_id)
+        public static void DB_ADDCAR(SqlConnection con, string mark, string model, string bod, string c_id)
         {
             try
             {
@@ -214,7 +195,7 @@ namespace CarW.Data
             }
 
         }
-        public static string DB_COMB_SERV(SqlConnection con,int id)
+        public static string DB_COMB_SERV(SqlConnection con, int id)
         {
             SqlDataAdapter sda = new SqlDataAdapter($"SELECT Descript FROM Servic WHERE ID = {id}", con);
             DataTable dt = new DataTable();
@@ -257,7 +238,7 @@ namespace CarW.Data
 
         }
         // !!!
-        internal static void DeleteRecord(SqlConnection con_p, string tableName, int id)// Вот эта срашная говнина вторая часть в DB_ADM
+        internal static void DeleteRecord(SqlConnection con_p, string tableName, int id)
         {
             if (con_p.State != ConnectionState.Open) con_p.Open();
 

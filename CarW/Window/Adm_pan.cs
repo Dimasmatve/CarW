@@ -1,16 +1,10 @@
 ﻿using CarW.Data;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CarW.Window
 {
@@ -25,7 +19,6 @@ namespace CarW.Window
             this.id_e = id;
             this.con_p = con;
 
-            //comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged; // Новая строка
         }
 
@@ -89,37 +82,6 @@ namespace CarW.Window
                 MessageBox.Show("Столбцы для выбранной таблицы не найдены.");
             }
         }
-        private void LoadTablesToComboBox()//ещё одна муть для собабоксав
-        {
-            List<string> tables = new List<string>();
-
-            try
-            {
-                if (con_p.State != ConnectionState.Open)
-                    con_p.Open();
-
-                string query = @"SELECT TABLE_NAME 
-                        FROM INFORMATION_SCHEMA.TABLES 
-                        WHERE TABLE_TYPE = 'BASE TABLE'";
-
-                using (SqlCommand command = new SqlCommand(query, con_p))
-                {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            tables.Add(reader.GetString(0));
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка загрузки таблиц: {ex.Message}");
-            }
-
-            comboBox1.DataSource = tables;
-        }
 
         public void txb_display(string select)
         {
@@ -146,7 +108,7 @@ namespace CarW.Window
                 delete.Visible = false;
                 add.Visible = false;
             }
-            else if(com == 2)
+            else if (com == 2)
             {
                 one.Visible = true;
                 two.Visible = true;
@@ -219,12 +181,12 @@ namespace CarW.Window
             comboBox1_SelectedIndexChanged(sender, e);
         }
 
-        private void delete_Click(object sender, EventArgs e)// Спорная функция, приходится сносить не только авто но и заказ с этим авто. Пока что можно оставить, но ввобще скорее всего стоит отказаться
+        private void delete_Click(object sender, EventArgs e)// Спорная функция, приходится сносить не только авто но и заказ с этим авто
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 // Получаем car_id из выбранной строки
-                int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["car_id"].Value);//при удалении Suplies кидает сюда
+                int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["car_id"].Value);
 
                 // Уточняем имя таблицы
                 string tableName = "Cars"; // Для таблицы Cars
@@ -245,7 +207,7 @@ namespace CarW.Window
                 three.Text = sel[3].Value.ToString();
 
             }
-            else if(se == "1")
+            else if (se == "1")
             {
                 one.Text = sel[1].Value.ToString();
                 two.Text = sel[2].Value.ToString();
@@ -296,14 +258,6 @@ namespace CarW.Window
         {
             string se = comboBox1.SelectedIndex.ToString();
             DB_ADM.INSERT_DATA(con_p, one.Text, two.Text, three.Text, four.Text, five.Text, se);
-            //if (se == "2")
-            //{
-            //    DB_ADM.INSERT_DATA(con_p, one.Text, two.Text, three.Text, four.Text, five.Text, se);
-            //}
-            //else if (se == "5")
-            //{
-            //    DB_ADM.INSERT_DATA(con_p, one.Text, two.Text, three.Text, four.Text, five.Text, se);
-            //}
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -321,7 +275,7 @@ namespace CarW.Window
             {
                 (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = $"{comboBox2.Text} LIKE '%{textBox1.Text}%'";// работает не со всеми полями(всякие emploee_id)
             }
-            catch{}
+            catch { }
         }
     }
 }

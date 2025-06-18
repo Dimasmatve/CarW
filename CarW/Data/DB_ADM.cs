@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace CarW.Data
 {
@@ -22,18 +16,14 @@ namespace CarW.Data
             sda.Fill(dt);
             return dt;
         }
-        public static void DELETE(SqlConnection con, DataGridViewSelectedCellCollection ro,string db, string id)
-        {
-            //заготовка для других таблиц
-        }
-        public static void UPDATE(SqlConnection con, DataGridViewSelectedCellCollection ro, string one, string two,string three,string four, string five, string six, string vib)
+        public static void UPDATE(SqlConnection con, DataGridViewSelectedCellCollection ro, string one, string two, string three, string four, string five, string six, string vib)
         {
             SqlDataAdapter sda = null;
-            if ( vib == "0")
+            if (vib == "0")
             {
                 sda = new SqlDataAdapter($"UPDATE Cars SET brand = N'{one}', model = '{two}', body_type = '{three}' WHERE car_id = {ro[0].Value.ToString()}", con);
             }
-            else if ( vib == "1")
+            else if (vib == "1")
             {
                 sda = new SqlDataAdapter($"UPDATE Clients SET client_full_name = N'{one}', phone_number = N'{two}' WHERE client_id = {ro[0].Value.ToString()}", con);
             }
@@ -59,7 +49,7 @@ namespace CarW.Data
             {
                 sda = new SqlDataAdapter($@"UPDATE Supplies SET Status = N'{one}' WHERE supli_id = {ro[0].Value.ToString()}", con);
             }
-            else if(vib == "7")
+            else if (vib == "7")
             {
                 sda = new SqlDataAdapter($@"UPDATE State SET title = N'{one}', Description = N'{two}', access = '{three}' WHERE state_id = {ro[0].Value.ToString()}", con);
             }
@@ -76,11 +66,11 @@ namespace CarW.Data
         public static void INSERT_DATA(SqlConnection con, string one, string two, string three, string four, string five, string vib)
         {
             SqlDataAdapter sda = null;
-            if ( vib == "2")
+            if (vib == "2")
             {
                 sda = new SqlDataAdapter($"INSERT INTO employ(logen, passw, full_name, roule, salary) VALUES(N'{one}', '{two}',N'{three}',N'{four}',N'{five}')", con);
             }
-            else if( vib == "5")
+            else if (vib == "5")
             {
                 sda = new SqlDataAdapter($"INSERT INTO Servic(ServiceName, Cost, Descript) VALUES(N'{one}', N'{two}',N'{three}')", con);
             }

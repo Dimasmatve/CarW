@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 using System.Windows.Forms;
-using System.Security.Cryptography;
-using System.Security.Policy;
-using System.Threading;
 
 namespace CarW.Data
 {
@@ -17,7 +10,7 @@ namespace CarW.Data
         public static DataTable SELECT_TABLE(SqlConnection con, string sel)
         {
             SqlDataAdapter sda = null;
-            if(sel == "Order")
+            if (sel == "Order")
             {
                 sda = new SqlDataAdapter(@"SELECT   
                 Cars.brand,    
@@ -29,11 +22,11 @@ namespace CarW.Data
                 [Order] ON Cars.car_id = [Order].car_id WHERE  
                 [Order].[Status] = N'Готов к выполнению';", con);
             }
-            else if(sel == "Supplies")
+            else if (sel == "Supplies")
             {
                 sda = new SqlDataAdapter("SELECT * FROM Supplies", con);
             }
-            if ( sda == null ) 
+            if (sda == null)
             {
                 MessageBox.Show("Таблица не найдена", "Ошибка");
             }
@@ -55,7 +48,7 @@ namespace CarW.Data
             {
                 MessageBox.Show(ex.Message, "Добавление не выполнено");
             }
-            
+
         }
         public static void CLOSE_ORD(SqlConnection con, DataGridViewSelectedCellCollection ro)
         {
@@ -68,8 +61,8 @@ namespace CarW.Data
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message,"Ошибка");
-            }          
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
         }
     }
 

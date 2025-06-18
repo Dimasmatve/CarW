@@ -1,15 +1,9 @@
 ﻿using CarW.Data;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CarW.Window
 {
@@ -47,17 +41,17 @@ namespace CarW.Window
                 models.Text = sel_car[2].Value.ToString();
                 bodwork.Text = sel_car[3].Value.ToString();
             }
-            catch 
+            catch
             {
-                MessageBox.Show("Выберите всю запись!","Подсказка");
+                MessageBox.Show("Выберите всю запись!", "Подсказка");
             }
 
         }
 
         private void calculate_Click(object sender, EventArgs e)
         {
-            if(marka.Text != "" && models.Text != "" && bodwork.Text != "")
-            DB_AS.DB_ADDCAR(con_p, marka.Text,models.Text,bodwork.Text,id_c);
+            if (marka.Text != "" && models.Text != "" && bodwork.Text != "")
+                DB_AS.DB_ADDCAR(con_p, marka.Text, models.Text, bodwork.Text, id_c);
             dataGridView1.DataSource = DB_AS.DB_CH_CARS(con_p, id_c);
 
         }
@@ -131,8 +125,8 @@ namespace CarW.Window
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int com = comboBox1.SelectedIndex + 1;
-            label5.Text = DB_AS.DB_COMB_SERV(con_p,com);
-            label7.Text = DB_AS.DB_COMB_SERV_prise(con_p,com);
+            label5.Text = DB_AS.DB_COMB_SERV(con_p, com);
+            label7.Text = DB_AS.DB_COMB_SERV_prise(con_p, com);
         }
 
         private void final_Click(object sender, EventArgs e)

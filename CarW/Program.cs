@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CarW
@@ -19,7 +16,7 @@ namespace CarW
             string mdfPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DP.mdf");
             string ldfPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DP_log.ldf");
 
-            using (SqlConnection conn = new SqlConnection(@"Server=(localdb)\\MSSQLLocalDB;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection(@"Server=(localdb)\\MSSQLLocalDB;Integrated Security=True"))// подключение к бд
             {
                 try
                 {
