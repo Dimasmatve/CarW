@@ -37,7 +37,7 @@ namespace CarW
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            AttachDatabase();
+            //AttachDatabase();
 
             Application.Run(new Avt());
         }

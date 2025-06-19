@@ -1,1 +1,0 @@
-DBCC CHECKIDENT ('Cars', RESEED, 0); -- Начнёт с 6

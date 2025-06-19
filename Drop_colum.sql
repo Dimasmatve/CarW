@@ -1,1 +1,0 @@
-ALTER TABLE dbo.employ DROP COLUMN condition;

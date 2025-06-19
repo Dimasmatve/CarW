@@ -73,7 +73,7 @@ namespace CarW.Window
             }
             else
             {
-                DB_WASH.ADD_SUPLI(con_p, prodname.Text, Desc.Text, Quant.Text);
+                DB_WASH.ADD_SUPLI(con_p, prodname.Text, Desc.Text, Quant.Text, id_e);
                 prodname.Text = "";
                 Desc.Text = "";
                 Quant.Text = "";

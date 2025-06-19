@@ -34,12 +34,12 @@ namespace CarW.Data
             sda.Fill(dt);
             return dt;
         }
-        public static void ADD_SUPLI(SqlConnection con, string pn, string desc, string qua)
+        public static void ADD_SUPLI(SqlConnection con, string pn, string desc, string qua,string id)
         {
             if (qua == "0") qua = "1";
             try
             {
-                SqlDataAdapter sda = new SqlDataAdapter($"INSERT INTO Supplies([Product_Name],Descript,Quantity,Status) VALUES(N'{pn}', N'{desc}','{qua}',N'Требует заказа')", con);
+                SqlDataAdapter sda = new SqlDataAdapter($"INSERT INTO Supplies([Product_Name],Descript,Quantity,Status,employee_ID) VALUES(N'{pn}', N'{desc}','{qua}',N'Требует заказа','{id}')", con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
                 MessageBox.Show("Запрос добавлен", "Заявка");
